@@ -1,0 +1,54 @@
+package sortingAndSearching;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.TreeMap;
+
+public class SortArrayOfStringAccToAnagrams {
+	
+	public static void main(String[] args) {
+		String[] array={"Strings","tSrings","USA","ASU","France","rFance"};
+		array=sortArrayOfAnagrams(array);
+		int length=array.length;
+		for(int index=0;index<length;index++){
+			System.out.println(array[index]);
+		}
+	}
+	
+	public static String[] sortArrayOfAnagrams(String[] array){
+		int size=array.length;
+		TreeMap<String, ArrayList<Integer>> wordMap=new TreeMap<String, ArrayList<Integer>>();
+		int index=0;
+		String[] modArray=new String[size];
+		while(index<size){
+			char[] arrayElement=array[index].toLowerCase().toCharArray();
+			Arrays.sort(arrayElement);
+			modArray[index]=new String(arrayElement);
+			index++;
+		}
+		index=0;
+		while(index<size){
+			if(wordMap.containsKey(modArray[index])){
+				ArrayList<Integer> arrList=wordMap.get(modArray[index]);
+				arrList.add(index);
+			}
+			else{
+				ArrayList<Integer> arrList=new ArrayList<Integer>();
+				arrList.add(index);
+				wordMap.put(modArray[index],arrList);
+			}
+			index++;
+		}
+		index=0;
+		for(Map.Entry me: wordMap.entrySet()){
+			ArrayList<Integer> arrList=(ArrayList<Integer>) me.getValue();
+			for(Integer i:arrList){
+				modArray[index]=array[i];
+				index++;
+			}
+		}
+		return modArray;
+	}
+}

@@ -1,0 +1,31 @@
+package sortingAndSearching;
+
+import java.util.Arrays;
+
+public class CountingSort {
+
+	public static void main(String[] args) {
+		
+		int[] array={9,0,2,1,1,2,2,9};
+		array=countingSort(array, 0, 9);
+		for(int element:array){
+			System.out.print(element);
+		}
+	}
+	
+	public static int[] countingSort(int[] array, int low,int high){
+		int[] sortedArray=new int[high-low+1];
+		for(int element:array){
+			sortedArray[element-low]++;
+		}
+		int current=0;
+		int length=sortedArray.length;
+		for(int index=0;index<length;index++){
+			Arrays.fill(array, current, sortedArray[index]+current, index+low);
+			current=current+sortedArray[index];
+			
+		}
+		return array;
+	}
+	
+}

@@ -1,0 +1,66 @@
+package sortingAndSearching;
+
+public class MergeSort {
+
+	public static int[] merge(int[] left, int[] right, int[] array) {
+		int leftSize = left.length;
+		int rightSize = right.length;
+		int leftIndex = 0;
+		int rightIndex = 0;
+		int index = 0;
+		while (leftIndex < leftSize && rightIndex < rightSize) {
+			if (left[leftIndex] <= right[rightIndex]) {
+				array[index] = left[leftIndex];
+				leftIndex++;
+			} else {
+				array[index] = right[rightIndex];
+				rightIndex++;
+			}
+			index++;
+		}
+
+		while (leftIndex < leftSize) {
+			array[index] = left[leftIndex];
+			index++;
+			leftIndex++;
+		}
+		while (rightIndex < rightSize) {
+			array[index] = right[rightIndex];
+			index++;
+			rightIndex++;
+		}
+		return array;
+	}
+
+	public static int[] mergeSort(int[] array) {
+		int arraySize = array.length;
+		if (arraySize < 2) {
+			return array;
+		}
+		int mid = arraySize / 2;
+		int[] left = new int[mid];
+		int[] right = new int[arraySize - mid];
+
+		int leftIndex = 0;
+		int rightIndex = 0;
+		int index = 0;
+
+		int leftSize = left.length;
+		int rightSize = right.length;
+
+		while (leftIndex < leftSize) {
+			left[leftIndex] = array[index];
+			index++;
+			leftIndex++;
+		}
+		while (rightIndex < rightSize) {
+			right[rightIndex] = array[index];
+			index++;
+			rightIndex++;
+		}
+		left = mergeSort(left);
+		right = mergeSort(right);
+		array = merge(left, right, array);
+		return array;
+	}
+}

@@ -1,0 +1,46 @@
+package sortingAndSearching;
+
+import java.util.Random;
+
+public class QuickSort {
+
+	public static void quickSort(int[] array, int startIndex, int endIndex) {
+		if (startIndex < endIndex) {
+			int partitionIndex = randomizedPartition(array, startIndex, endIndex);
+			quickSort(array, startIndex, partitionIndex - 1);
+			quickSort(array, partitionIndex + 1, endIndex);
+		}
+
+	}
+
+	public static int parition(int[] array, int startIndex, int endIndex) {
+
+		int partitionIndex = startIndex;
+		int pivot = array[endIndex];
+		int index = 0;
+		while (index < endIndex) {
+			if (array[index] <= pivot) {
+				if (index != partitionIndex) {
+					swap(array, partitionIndex, index);
+				}
+				partitionIndex++;
+			}
+			index++;
+		}
+		swap(array, partitionIndex, endIndex);
+
+		return partitionIndex;
+	}
+	
+	public static int randomizedPartition(int[] array, int startIndex, int endIndex){
+		int pivot=new Random().nextInt(endIndex+1);
+		swap(array, pivot, endIndex);
+		return parition(array, startIndex, endIndex);
+	}
+
+	public static void swap(int[] array, int index1, int index2) {
+		int temp = array[index1];
+		array[index1] = array[index2];
+		array[index2] = temp;
+	}
+}
